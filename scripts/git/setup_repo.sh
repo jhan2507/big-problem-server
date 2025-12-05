@@ -6,7 +6,7 @@ set -e
 # Parse options
 FIX_MODE=false
 PUSH_AFTER=false
-REPO_URL="git@personal:jhan2507/market-problem.git"
+REPO_URL="git@personal:jhan2507/big-problem-server.git"
 
 while [[ $# -gt 0 ]]; do
     case $1 in
