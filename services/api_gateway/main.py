@@ -278,7 +278,7 @@ def run():
     
     # Setup health checker
     health_checker = HealthChecker("api_gateway")
-    http_server = ServiceHTTPServer("api_gateway", port=8080, health_checker=health_checker, metrics_collector=metrics)
+    http_server = ServiceHTTPServer("api_gateway", port=8089, health_checker=health_checker, metrics_collector=metrics)
     http_server.start()
     
     # Register with service discovery
@@ -287,7 +287,7 @@ def run():
         "api_gateway",
         host="localhost",
         port=8080,
-        health_check_url="http://localhost:8080/health"
+        health_check_url="http://localhost:8089/health"
     )
     
     # Register shutdown handler
@@ -297,8 +297,9 @@ def run():
     
     register_shutdown_handler(shutdown_handler)
     
-    # Run Flask app
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    # Run Flask app with production WSGI server
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
 
 
 if __name__ == "__main__":

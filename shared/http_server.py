@@ -161,8 +161,9 @@ class ServiceHTTPServer:
     def start(self, daemon: bool = True):
         """Start HTTP server in background thread."""
         def run_server():
+            from waitress import serve
             logger.info(f"Starting HTTP server for {self.service_name} on port {self.port}")
-            self.app.run(host='0.0.0.0', port=self.port, debug=False, use_reloader=False)
+            serve(self.app, host='0.0.0.0', port=self.port)
         
         self.server_thread = threading.Thread(target=run_server, daemon=daemon)
         self.server_thread.start()

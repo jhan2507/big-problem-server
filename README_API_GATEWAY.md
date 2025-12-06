@@ -14,6 +14,17 @@ The API Gateway runs on port **8080** and provides:
 - **Correlation ID**: Propagates correlation IDs across service calls
 - **Health-based Routing**: Only routes to healthy services
 
+### Authentication
+
+- Enable via `API_KEY_ENABLED=true` and set `API_KEYS` (comma-separated) in environment.
+- Clients must send `X-API-Key: <key>` or `Authorization: Bearer <key>`.
+
+Example:
+
+```bash
+curl -H "X-API-Key: example-key-1" http://localhost:8080/api/price/health
+```
+
 ### Usage
 
 Access services through the API Gateway:
@@ -48,6 +59,15 @@ Environment variables for API Gateway:
 ```bash
 RATE_LIMIT_REQUESTS=100    # Max requests per window
 RATE_LIMIT_WINDOW=60       # Time window in seconds
+
+# Authentication
+API_KEY_ENABLED=false
+API_KEYS=example-key-1,example-key-2
+
+# Observability
+METRICS_ENABLED=true
+TRACING_ENABLED=true
+JAEGER_ENDPOINT=http://localhost:4318
 ```
 
 ## Service Discovery
