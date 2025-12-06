@@ -2,8 +2,6 @@
 .env
 .env.*
 !.env.example
-!env.*
-!env.*
 
 
 # Python
@@ -16,6 +14,11 @@ env/
 venv/
 ENV/
 .venv
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage/
+.cache/
 
 # IDEs
 .vscode/
